@@ -1,38 +1,26 @@
 var express = require('express');
 var router = express.Router();
+var Mock = require('mockjs');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', {
-      title: 'Express'
-  });
+router.get('/User/Invite/getActivityInviteToken', function(req, res, next) {
+    var data =Mock.mock({
+        'list|20':[{
+            'id|+1':1,
+            'serial_number|1-100':1,
+            'warn_number|1-100':1,
+            'warn_name|1':['流水线编排服务异常','磁盘占用超过阈值'],
+            'warn_level|1':['紧急','重要'],
+            'warn_detail':'环境IP:10.114.123.12,服务名称:XX',
+            'create_time':Random.datetime(),
+            'finish_time':Random.datetime(),
+            'contact|4':'abc'
+        }]
+    });
+    res.json(require('../json/getActivityInviteToken.json'))
 });
 
 module.exports = router;
 
 
-// test
-/*router.get('/example/b', function (req, res, next) {
-    console.log('response will be sent by the next function ...');
-    // return res.send('Hello from B1!');
-    next()
-}, function (req, res) {
-    return res.send('Hello from B2!');
-});
-
-var cb0 = function (req, res, next) {
-    console.log('CB0');
-    next();
-}
-
-var cb1 = function (req, res, next) {
-    console.log('CB1');
-    next();
-}
-
-var cb2 = function (req, res) {
-    res.send('Hello from C!');
-}
-
-router.get('/example/c', [cb0, cb1, cb2]);*/
 

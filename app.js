@@ -6,6 +6,15 @@ var logger = require('morgan');
 var indexRouter = require('./routes');
 var app = express();
 
+// 设置允许跨域
+app.all("*",function(req,res,next){
+    res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Headers","content-type");
+    res.header("Access-Control-Allow-Methods","DELETE,PUT,POST,GET,OPTIONS");
+    if (req.method.toLowerCase() === 'options') res.send(200);
+    else next();
+});
+
 // view engine setup
 var ejs=require('ejs');
 app.engine('html',ejs.__express);
